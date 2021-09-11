@@ -66,8 +66,8 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "ghcr.io/Norsk-Tipping/mg:latest"
-      - "ghcr.io/Norsk-Tipping/mg:{{.Version}}"
+      - "ghcr.io/norsk-tipping/mg:latest"
+      - "ghcr.io/norsk-tipping/mg:{{.Version}}"
     dockerfile: Dockerfile
     use: buildx
     skip_push: false
