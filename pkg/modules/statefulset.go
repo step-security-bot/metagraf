@@ -132,6 +132,28 @@ func GenStatefulSet(mg *metagraf.MetaGraf, namespace string) {
 
 	}
 
+	// Container resource requests & limits
+	resources := corev1.ResourceRequirements{
+		Requests: corev1.ResourceList{},
+		Limits:   corev1.ResourceList{},
+	}
+
+	// Check if any resource requests is set
+	if len(params.ContainerResourceRequestsCPU) > 0 {
+		resources.Requests["cpu"] = resource.MustParse(params.ContainerResourceRequestsCPU)
+	}
+	if len(params.ContainerResourceRequestsMemory) > 0 {
+		resources.Requests["memory"] = resource.MustParse(params.ContainerResourceRequestsMemory)
+	}
+
+	// Check if any resource limits is set
+	if len(params.ContainerResourceLimitsCPU) > 0 {
+		resources.Limits["cpu"] = resource.MustParse(params.ContainerResourceLimitsCPU)
+	}
+	if len(params.ContainerResourceLimitsMemory) > 0 {
+		resources.Limits["memory"] = resource.MustParse(params.ContainerResourceLimitsMemory)
+	}
+
 	// Tying Container PodSpec together
 	Container := corev1.Container{
 		Name:            objname,
@@ -140,6 +162,7 @@ func GenStatefulSet(mg *metagraf.MetaGraf, namespace string) {
 		Ports:           ContainerPorts,
 		VolumeMounts:    VolumeMounts,
 		Env:             EnvVars,
+		Resources:       resources,
 	}
 	// Checking for Probes
 	probe := corev1.Probe{}

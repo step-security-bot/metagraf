@@ -34,6 +34,10 @@ func init() {
 	createStatefulsetCmd.Flags().BoolVar(&params.CreateStatefulSetPersistentVolumeClaim, "create-persistent-volumeclaim", false, "Enables the creation of a persistent volume claims template.")
 	createStatefulsetCmd.Flags().StringVar(&params.StatefulSetPersistentVolumeClaimStorageClass, "statefulset-pv-storageclass", "", "StatefulSet persistent volume claim storage class")
 	createStatefulsetCmd.Flags().StringVar(&params.StatefulSetPersistentVolumeClaimSize, "statefulset-pv-size", "", "StatefulSet persistent volume claim size")
+	createStatefulsetCmd.Flags().StringVar(&params.ContainerResourceRequestsCPU, "resource-requests-cpu", "", "Sets container CPU resource request")
+	createStatefulsetCmd.Flags().StringVar(&params.ContainerResourceRequestsMemory, "resource-requests-memory", "", "Sets container Memory resource request")
+	createStatefulsetCmd.Flags().StringVar(&params.ContainerResourceLimitsCPU, "resource-limits-cpu", "", "Sets container CPU resource limits")
+	createStatefulsetCmd.Flags().StringVar(&params.ContainerResourceLimitsMemory, "resource-limits-memory", "", "Sets container Memory resource limits")
 }
 
 var createStatefulsetCmd = &cobra.Command{

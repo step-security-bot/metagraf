@@ -30,7 +30,11 @@ func init() {
 	createDeploymentCmd.Flags().BoolVar(&params.WithAffinityRules, "with-affinity-rules", params.WithPodAffinityRulesDefault, "Enable generation of pod affinity or anti-affinity rules.")
 	createDeploymentCmd.Flags().StringVar(&params.PodAntiAffinityTopologyKey, "anti-affinity-topology-key", "", "Define which node label to use as a topologyKey (describing a datacenter, zone or a rack as an example)")
 	createDeploymentCmd.Flags().Int32Var(&params.PodAntiAffinityWeight, "pod-anti-affinity-weight", params.PodAntiAffinityWeightDefault, "Weight for WeightedPodAffinityTerm.")
-	createDeploymentCmd.Flags().BoolVar(&params.DownwardAPIEnvVars,"downward-api-envvars",false,"Enables generation of environment variables from Downward API. An opinionated selection.")
+	createDeploymentCmd.Flags().BoolVar(&params.DownwardAPIEnvVars, "downward-api-envvars", false, "Enables generation of environment variables from Downward API. An opinionated selection.")
+	createDeploymentCmd.Flags().StringVar(&params.ContainerResourceRequestsCPU, "resource-requests-cpu", "", "Sets container CPU resource request")
+	createDeploymentCmd.Flags().StringVar(&params.ContainerResourceRequestsMemory, "resource-requests-memory", "", "Sets container Memory resource request")
+	createDeploymentCmd.Flags().StringVar(&params.ContainerResourceLimitsCPU, "resource-limits-cpu", "", "Sets container CPU resource limits")
+	createDeploymentCmd.Flags().StringVar(&params.ContainerResourceLimitsMemory, "resource-limits-memory", "", "Sets container Memory resource limits")
 }
 
 var createDeploymentCmd = &cobra.Command{
