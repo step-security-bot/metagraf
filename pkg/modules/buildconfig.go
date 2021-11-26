@@ -72,7 +72,11 @@ func GenBuildConfig(mg *metagraf.MetaGraf) {
 	// Construct toObjRef for BuildConfig output overrides
 	// Resource labels
 	objname := Name(mg)
-	labels := Labels(objname, labelsFromParams(params.Labels))
+	labels := Labels(objname, mg.Metadata.Labels)
+
+	// Add labels from params
+	labels = MergeLabels(labels, labelsFromParams(params.Labels))
+
 	var toObjRefName = objname
 	var toObjRefTag = "latest"
 	if len(params.OutputImagestream) > 0 {

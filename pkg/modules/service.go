@@ -35,7 +35,10 @@ func GenService(mg *metagraf.MetaGraf) {
 	selectors := make(map[string]string)
 	selectors["app"] = objname
 
-	labels := Labels(objname, labelsFromParams(params.Labels))
+	labels := Labels(objname, mg.Metadata.Labels)
+
+	// Add labels from params
+	labels = MergeLabels(labels, labelsFromParams(params.Labels))
 
 	obj := corev1.Service{
 		TypeMeta: metav1.TypeMeta{

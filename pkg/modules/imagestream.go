@@ -37,7 +37,10 @@ func GenImageStream(mg *metagraf.MetaGraf, namespace string) {
 	log.V(2).Infof("Generated ImageStream name: %v", objname)
 
 	// Resource labels
-	l := Labels(objname, labelsFromParams(params.Labels))
+	l := Labels(objname, mg.Metadata.Labels)
+
+	// Add labels from params
+	l = MergeLabels(l, labelsFromParams(params.Labels))
 
 	objref := corev1.ObjectReference{}
 	objref.Kind = ""

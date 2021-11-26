@@ -38,7 +38,11 @@ func GenServiceMonitor(mg *metagraf.MetaGraf) {
 	objname := Name(mg)
 
 	// Resource labels
-	l := Labels(objname, labelsFromParams(params.Labels))
+	l := Labels(objname, mg.Metadata.Labels)
+
+	// Add labels from params
+	l = MergeLabels(l, labelsFromParams(params.Labels))
+
 	l["app.kubernetes.io/instance"] = objname
 	l["prometheus"] = params.ServiceMonitorOperatorName
 

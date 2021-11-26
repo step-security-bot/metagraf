@@ -17,12 +17,20 @@ limitations under the License.
 package modules
 
 import (
+	"github.com/laetho/metagraf/internal/pkg/params"
 	"github.com/laetho/metagraf/pkg/metagraf"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kapp "sigs.k8s.io/application/pkg/apis/app/v1beta1"
 )
 
 func GenApplication(mg *metagraf.MetaGraf) {
+
+	objname := Name(mg)
+	// Resource labels
+	labels := Labels(objname, mg.Metadata.Labels)
+
+	// Add labels from params
+	labels = MergeLabels(labels, labelsFromParams(params.Labels))
 
 	obj := kapp.Application{
 		TypeMeta: metav1.TypeMeta{
@@ -33,7 +41,7 @@ func GenApplication(mg *metagraf.MetaGraf) {
 			Name:         Name(mg),
 			GenerateName: "",
 			Namespace:    NameSpace,
-			Labels:       mg.Metadata.Labels,
+			Labels:       labels,
 			Annotations:  mg.Metadata.Annotations,
 		},
 		Spec: kapp.ApplicationSpec{

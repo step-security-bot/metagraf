@@ -68,6 +68,13 @@ func GenArgoApplication(mg *metagraf.MetaGraf) argoapp.Application {
 
 	var meta []argoapp.Info
 
+	objname := Name(mg)
+	// Resource labels
+	labels := Labels(objname, mg.Metadata.Labels)
+
+	// Add labels from params
+	labels = MergeLabels(labels, labelsFromParams(params.Labels))
+
 	obj := argoapp.Application{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       "Application",
@@ -76,7 +83,7 @@ func GenArgoApplication(mg *metagraf.MetaGraf) argoapp.Application {
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      mg.Name(OName, Version),
 			Namespace: GetArgoCDApplicationNamespace(),
-			Labels:    mg.Metadata.Labels,
+			Labels:    labels,
 		},
 		Spec: argoapp.ApplicationSpec{
 			Destination: argoapp.ApplicationDestination{
