@@ -55,6 +55,7 @@ var createBuildConfigCmd = &cobra.Command{
 				os.Exit(1)
 			}
 		}
+		params.NameSpace = Namespace
 		FlagPassingHack()
 		mg := metagraf.Parse(args[0])
 
