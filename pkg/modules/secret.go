@@ -19,6 +19,7 @@ package modules
 import (
 	"context"
 	"fmt"
+	"github.com/laetho/metagraf/internal/pkg/params"
 	"os"
 	"strconv"
 	"strings"
@@ -52,8 +53,10 @@ func GenSecrets(mg *metagraf.MetaGraf) {
 	for _, e := range mg.Spec.Environment.Local {
 		if len(e.SecretFrom) > 0 {
 			if !secretExists(strings.ToLower(e.SecretFrom)) {
-				labels := make(map[string]string)
-				labels["app"] = strings.ToLower(mg.Name(OName,Version))
+				appName := strings.ToLower(mg.Name(OName,Version))
+				labels := Labels(appName, mg.Metadata.Labels)
+				// Add labels from params
+				labels = MergeLabels(labels, labelsFromParams(params.Labels))
 
 				obj := CreateEmptySecret(e.SecretFrom,labels)
 				if !Dryrun {

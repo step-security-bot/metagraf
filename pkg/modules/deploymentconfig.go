@@ -48,8 +48,11 @@ func GenDeploymentConfig(mg *metagraf.MetaGraf) {
 	}
 
 	// Resource labels
-	l := Labels(objname, labelsFromParams(params.Labels))
+	l := Labels(objname, mg.Metadata.Labels)
 	l["deploymentconfig"] = objname
+
+	// Add labels from params
+	l = MergeLabels(l, labelsFromParams(params.Labels))
 
 	// Selector
 	s := make(map[string]string)
