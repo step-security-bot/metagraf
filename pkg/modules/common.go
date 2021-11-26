@@ -460,6 +460,14 @@ func Labels(name string, input map[string]string) map[string]string {
 	return l
 }
 
+// Merge two Labels maps, first input gets overriden by second input
+func MergeLabels(first map[string]string, second map[string]string) map[string]string {
+	for k, v := range second {
+		first[k] = v
+	}
+	return first
+}
+
 // Builds and returns slice of Kubernetes EnvVars for common values
 // extracted from DownwardAPI.
 func DownwardAPIEnvVars() []corev1.EnvVar {
