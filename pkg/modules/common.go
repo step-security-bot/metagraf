@@ -166,7 +166,10 @@ func GetEnvVars(mg *metagraf.MetaGraf, inputprops metagraf.MGProperties) []corev
 			localenv := specenvsmap[p.MGKey()]
 			outvar := localenv.ToEnvVar()
 			outvar.Value = p.Value
-			outputevars = append(outputevars, outvar)
+			// Empty value means it is not set, don't append empty vars
+			if p.Value != ""  && !p.Required {
+				outputevars = append(outputevars, outvar)
+			}
 		} else {
 			environmentVar := p.ToEnvironmentVar()
 			envvar := environmentVar.ToEnvVar()
