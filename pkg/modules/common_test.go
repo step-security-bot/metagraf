@@ -36,13 +36,7 @@ var singleProps = metagraf.MGProperties{
 		Value: "BAR",
 	},
 }
-var singleWrongProps = metagraf.MGProperties{
-	"FOO2": metagraf.MGProperty{
-		Source: "local",
-		Key: "FOO2",
-		Value: "BAZ",
-	},
-}
+
 var doubleProps = metagraf.MGProperties{
 	"FOO": metagraf.MGProperty{
 		Source: "local",
@@ -114,7 +108,7 @@ func Test_RequiredEnvVarWithValue(t *testing.T) {
 		},
 	}
 	assert.NoError(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.ElementsMatch(t, expectedResult, actualResult)
 }
 
 func Test_RequiredEnvVarWithMissingValue(t *testing.T) {
@@ -122,10 +116,9 @@ func Test_RequiredEnvVarWithMissingValue(t *testing.T) {
 	mg := generateMg(true)
 
 	actualResult, err := GetEnvVars(&mg, emptyProps)
-	var expectedResult []corev1.EnvVar = nil
 
 	assert.Error(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.Nil(t, actualResult)
 }
 
 func Test_MultipleRequiredWithValues(t *testing.T) {
@@ -154,7 +147,7 @@ func Test_MultipleRequiredWithValues(t *testing.T) {
 		},
 	}
 	assert.NoError(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.ElementsMatch(t, expectedResult, actualResult)
 }
 
 func Test_MultipleRequiredWithOneMissingValue(t *testing.T) {
@@ -164,10 +157,9 @@ func Test_MultipleRequiredWithOneMissingValue(t *testing.T) {
 	mg.Spec.Environment.Local = append(mg.Spec.Environment.Local, secondRequired)
 
 	actualResult, err := GetEnvVars(&mg, singleProps)
-	var expectedResult []corev1.EnvVar = nil
 
 	assert.Error(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.Nil(t, actualResult)
 }
 
 func Test_NotRequiredEnvVarWithValue(t *testing.T) {
@@ -190,7 +182,7 @@ func Test_NotRequiredEnvVarWithValue(t *testing.T) {
 		},
 	}
 	assert.NoError(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.ElementsMatch(t, expectedResult, actualResult)
 }
 
 func Test_NotRequiredEnvVarWithoutValue(t *testing.T) {
@@ -209,7 +201,7 @@ func Test_NotRequiredEnvVarWithoutValue(t *testing.T) {
 		},
 	}
 	assert.NoError(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.ElementsMatch(t, expectedResult, actualResult)
 }
 
 func Test_CombinedRequiredAndNotRequiredWithValues(t *testing.T) {
@@ -239,7 +231,7 @@ func Test_CombinedRequiredAndNotRequiredWithValues(t *testing.T) {
 		},
 	}
 	assert.NoError(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.ElementsMatch(t, expectedResult, actualResult)
 }
 
 func Test_CombinedRequiredAndNotRequiredWithOnlyRequiredValue(t *testing.T) {
@@ -265,19 +257,18 @@ func Test_CombinedRequiredAndNotRequiredWithOnlyRequiredValue(t *testing.T) {
 		},
 	}
 	assert.NoError(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.ElementsMatch(t, expectedResult, actualResult)
 }
 
 func Test_CombinedRequiredAndNotRequiredWithMissingRequiredValue(t *testing.T) {
 	// env required, value not set = error
 	// env not required, value set = output
-	mg := generateMg(true)
-	secondRequired := generateEnvironmentVar("FOO2", false)
+	mg := generateMg(false)
+	secondRequired := generateEnvironmentVar("FOO2", true)
 	mg.Spec.Environment.Local = append(mg.Spec.Environment.Local, secondRequired)
 
-	actualResult, err := GetEnvVars(&mg, singleWrongProps)
-	var expectedResult []corev1.EnvVar = nil
+	actualResult, err := GetEnvVars(&mg, singleProps)
 
 	assert.Error(t, err)
-	assert.Equal(t, expectedResult, actualResult)
+	assert.Nil(t, actualResult)
 }
