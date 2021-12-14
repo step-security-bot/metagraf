@@ -36,6 +36,13 @@ var singleProps = metagraf.MGProperties{
 		Value: "BAR",
 	},
 }
+var singleWrongProps = metagraf.MGProperties{
+	"FOO2": metagraf.MGProperty{
+		Source: "local",
+		Key: "FOO2",
+		Value: "BAZ",
+	},
+}
 var doubleProps = metagraf.MGProperties{
 	"FOO": metagraf.MGProperty{
 		Source: "local",
@@ -265,10 +272,10 @@ func Test_CombinedRequiredAndNotRequiredWithMissingRequiredValue(t *testing.T) {
 	// env required, value not set = error
 	// env not required, value set = output
 	mg := generateMg(true)
-	secondRequired := generateEnvironmentVar("FOO2", true)
+	secondRequired := generateEnvironmentVar("FOO2", false)
 	mg.Spec.Environment.Local = append(mg.Spec.Environment.Local, secondRequired)
 
-	actualResult, err := GetEnvVars(&mg, singleProps)
+	actualResult, err := GetEnvVars(&mg, singleWrongProps)
 	var expectedResult []corev1.EnvVar = nil
 
 	assert.Error(t, err)
