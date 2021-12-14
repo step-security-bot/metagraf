@@ -99,7 +99,11 @@ func GenDeployment(mg *metagraf.MetaGraf, namespace string) {
 		HasImageInfo = true
 	}
 
-	EnvVars = GetEnvVars(mg, Variables)
+	EnvVars, err = GetEnvVars(mg, Variables)
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
 	if params.DownwardAPIEnvVars {
 		EnvVars = append(EnvVars, DownwardAPIEnvVars()...)
 	}

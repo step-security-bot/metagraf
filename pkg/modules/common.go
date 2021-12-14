@@ -20,6 +20,7 @@ import (
 	"bytes"
 	gojson "encoding/json"
 	"fmt"
+	"github.com/golang/glog"
 	"os"
 	"strconv"
 	"strings"
@@ -118,9 +119,9 @@ func GetMGEnvVars(mg *metagraf.MetaGraf) []corev1.EnvVar {
 	return envs
 }
 
-func GetEnvVars(mg *metagraf.MetaGraf, inputprops metagraf.MGProperties) []corev1.EnvVar {
+func GetEnvVars(mg *metagraf.MetaGraf, inputprops metagraf.MGProperties) (outputevars []corev1.EnvVar, err error) {
 	specenvs := mg.Spec.Environment.Local
-	var outputevars []corev1.EnvVar
+	err = nil
 
 	outputevars = append(outputevars, GetMGEnvVars(mg)...)
 
@@ -167,8 +168,12 @@ func GetEnvVars(mg *metagraf.MetaGraf, inputprops metagraf.MGProperties) []corev
 			outvar := localenv.ToEnvVar()
 			outvar.Value = p.Value
 			// Empty value means it is not set, don't append empty vars
-			if p.Value != ""  && !p.Required {
+			if p.Value != "" {
 				outputevars = append(outputevars, outvar)
+			} else if p.Value == "" && p.Required {
+				// this scenario should really have been discovered with `mg inspect`
+				err = fmt.Errorf("environment variable with name [%s] is missing or has no value", p.Key)
+				return nil, err
 			}
 		} else {
 			environmentVar := p.ToEnvironmentVar()
@@ -177,8 +182,24 @@ func GetEnvVars(mg *metagraf.MetaGraf, inputprops metagraf.MGProperties) []corev
 			outputevars = append(outputevars, envvar)
 		}
 	}
-	return outputevars
+
+	// verify that all required properties are set
+	outputevarsmap := make(map[string]string)
+	for _, output := range outputevars {
+		outputevarsmap[output.Name] = output.Value
+	}
+	 for _, specenv := range specenvsmap {
+		if _, ok := outputevarsmap[specenv.Name]; ! ok && specenv.Required {
+				glog.Errorf("environment variable with name [%s] is missing or has no value", specenv.Name)
+				err = fmt.Errorf("environment variable with name [%s] is missing or has no value", specenv.Name)
+				return nil, err
+
+		}
+	}
+
+	return outputevars, err
 }
+
 
 func GetBuildEnvVars(mg *metagraf.MetaGraf, mgp metagraf.MGProperties) []corev1.EnvVar {
 	var envs []corev1.EnvVar

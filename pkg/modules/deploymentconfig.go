@@ -19,6 +19,7 @@ package modules
 import (
 	"context"
 	"fmt"
+	"github.com/golang/glog"
 	"os"
 	"strconv"
 	"strings"
@@ -98,7 +99,11 @@ func GenDeploymentConfig(mg *metagraf.MetaGraf) {
 		HasImageInfo = true
 	}
 
-	EnvVars = GetEnvVars(mg, Variables)
+	EnvVars, err = GetEnvVars(mg, Variables)
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
 	if params.DownwardAPIEnvVars {
 		EnvVars = append(EnvVars, DownwardAPIEnvVars()...)
 	}
