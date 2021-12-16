@@ -56,7 +56,7 @@ func GenSecrets(mg *metagraf.MetaGraf) {
 				appName := strings.ToLower(mg.Name(OName,Version))
 				labels := Labels(appName, mg.Metadata.Labels)
 				// Add labels from params
-				labels = MergeLabels(labels, labelsFromParams(params.Labels))
+				labels = MergeLabels(labels, LabelsFromParams(params.Labels))
 
 				obj := CreateEmptySecret(e.SecretFrom,labels)
 				if !Dryrun {

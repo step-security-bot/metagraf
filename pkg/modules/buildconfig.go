@@ -75,7 +75,7 @@ func GenBuildConfig(mg *metagraf.MetaGraf) {
 	labels := Labels(objname, mg.Metadata.Labels)
 
 	// Add labels from params
-	labels = MergeLabels(labels, labelsFromParams(params.Labels))
+	labels = MergeLabels(labels, LabelsFromParams(params.Labels))
 
 	var toObjRefName = objname
 	var toObjRefTag = "latest"

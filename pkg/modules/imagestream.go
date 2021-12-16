@@ -40,7 +40,7 @@ func GenImageStream(mg *metagraf.MetaGraf, namespace string) {
 	l := Labels(objname, mg.Metadata.Labels)
 
 	// Add labels from params
-	l = MergeLabels(l, labelsFromParams(params.Labels))
+	l = MergeLabels(l, LabelsFromParams(params.Labels))
 
 	objref := corev1.ObjectReference{}
 	objref.Kind = ""

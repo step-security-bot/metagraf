@@ -461,7 +461,7 @@ func GetGlobalConfigMapVolumes(mg *metagraf.MetaGraf, Volumes *[]corev1.Volume, 
 	}
 }
 
-func labelsFromParams(labels []string) map[string]string {
+func LabelsFromParams(labels []string) map[string]string {
 	ret := make(map[string]string)
 	for _, s := range labels {
 		split := strings.Split(s, "=")

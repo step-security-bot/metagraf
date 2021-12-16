@@ -30,7 +30,7 @@ func GenApplication(mg *metagraf.MetaGraf) {
 	labels := Labels(objname, mg.Metadata.Labels)
 
 	// Add labels from params
-	labels = MergeLabels(labels, labelsFromParams(params.Labels))
+	labels = MergeLabels(labels, LabelsFromParams(params.Labels))
 
 	obj := kapp.Application{
 		TypeMeta: metav1.TypeMeta{

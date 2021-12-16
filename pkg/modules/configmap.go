@@ -135,7 +135,7 @@ func genConfigMapsFromConfig(conf *metagraf.Config, mg *metagraf.MetaGraf) {
 	l := Labels(objname, mg.Metadata.Labels)
 
 	// Add labels from params
-	l = MergeLabels(l, labelsFromParams(params.Labels))
+	l = MergeLabels(l, LabelsFromParams(params.Labels))
 
 	cm := corev1.ConfigMap{
 		TypeMeta: metav1.TypeMeta{
