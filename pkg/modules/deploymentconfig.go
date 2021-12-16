@@ -53,7 +53,7 @@ func GenDeploymentConfig(mg *metagraf.MetaGraf) {
 	l["deploymentconfig"] = objname
 
 	// Add labels from params
-	l = MergeLabels(l, labelsFromParams(params.Labels))
+	l = MergeLabels(l, LabelsFromParams(params.Labels))
 
 	// Selector
 	s := make(map[string]string)
@@ -148,7 +148,7 @@ func GenDeploymentConfig(mg *metagraf.MetaGraf) {
 	// Tying Container PodSpec together
 	Container := corev1.Container{
 		Name:            objname,
-		Image:           imageRef(mg),
+		Image:           ImageRef(mg),
 		ImagePullPolicy: PullPolicy,
 		Ports:           ContainerPorts,
 		VolumeMounts:    VolumeMounts,
@@ -212,7 +212,7 @@ func GenDeploymentConfig(mg *metagraf.MetaGraf) {
 
 // Determine if we're using container build by the project or if we are just referencing
 // an existing container.
-func imageRef(mg *metagraf.MetaGraf) string {
+func ImageRef(mg *metagraf.MetaGraf) string {
 	if len(mg.Spec.Image) > 0 && params.DisableDeploymentImageAliasing {
 		return mg.Spec.Image
 	} else {

@@ -73,7 +73,7 @@ func GenArgoApplication(mg *metagraf.MetaGraf) argoapp.Application {
 	labels := Labels(objname, mg.Metadata.Labels)
 
 	// Add labels from params
-	labels = MergeLabels(labels, labelsFromParams(params.Labels))
+	labels = MergeLabels(labels, LabelsFromParams(params.Labels))
 
 	obj := argoapp.Application{
 		TypeMeta: metav1.TypeMeta{

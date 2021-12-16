@@ -65,7 +65,7 @@ func GenRoute(mg *metagraf.MetaGraf) {
 	l := Labels(objname, mg.Metadata.Labels)
 
 	// Add labels from params
-	l = MergeLabels(l, labelsFromParams(params.Labels))
+	l = MergeLabels(l, LabelsFromParams(params.Labels))
 
 	obj := routev1.Route{
 		TypeMeta: metav1.TypeMeta{

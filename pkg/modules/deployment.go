@@ -55,7 +55,7 @@ func GenDeployment(mg *metagraf.MetaGraf, namespace string) {
 	l["deployment"] = objname
 
 	// Add labels from params
-	l = MergeLabels(l, labelsFromParams(params.Labels))
+	l = MergeLabels(l, LabelsFromParams(params.Labels))
 
 	// Selector
 	sm := make(map[string]string)
@@ -136,7 +136,7 @@ func GenDeployment(mg *metagraf.MetaGraf, namespace string) {
 	// Tying Container PodSpec together
 	Container := corev1.Container{
 		Name:            objname,
-		Image:           imageRef(mg),
+		Image:           ImageRef(mg),
 		ImagePullPolicy: PullPolicy,
 		Ports:           ContainerPorts,
 		VolumeMounts:    VolumeMounts,
