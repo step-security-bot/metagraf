@@ -20,6 +20,7 @@ import (
 	"github.com/laetho/metagraf/internal/pkg/params"
 	"github.com/laetho/metagraf/pkg/generators/argocd"
 	"github.com/laetho/metagraf/pkg/metagraf"
+	"github.com/laetho/metagraf/pkg/modules"
 	"github.com/spf13/cobra"
 )
 
@@ -42,6 +43,7 @@ func init() {
 	argocdCreateApplicationCmd.Flags().BoolVarP(&argocd.AppOpts.AutomatedSyncPolicy, "auto", "a", false, "Generate an automated sync policy?")
 	argocdCreateApplicationCmd.Flags().BoolVar(&argocd.AppOpts.AutomatedSyncPolicyPrune, "auto-prune", false, "Automatically delete removed items")
 	argocdCreateApplicationCmd.Flags().BoolVar(&argocd.AppOpts.AutomatedSyncPolicySelfHeal, "auto-heal", false, "Try to self heal?")
+	argocdCreateApplicationCmd.Flags().StringSliceVar(&CVars, "cvars", []string{}, "Slice of key=value pairs, seperated by ,")
 
 	_ = argocdCreateCmd.MarkPersistentFlagRequired("namespace")
 	_ = argocdCreateApplicationCmd.MarkFlagRequired("project")
@@ -96,6 +98,9 @@ var argocdCreateApplicationCmd = &cobra.Command{
 		argocd.AppOpts.Namespace = params.NameSpace
 		generator := argocd.NewApplicationGenerator(mg, metagraf.MGProperties{}, argocd.AppOpts)
 		app := generator.Application(mg.Name(OName, Version))
+
+		// Add labels from params
+		app.Labels = modules.MergeLabels(app.Labels, modules.LabelsFromParams(CVars))
 
 		if params.Output {
 			argocd.OutputApplication(app, params.Format)
