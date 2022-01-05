@@ -486,6 +486,10 @@ func Labels(name string, input map[string]string) map[string]string {
 
 // Merge two Labels maps, first input gets overriden by second input
 func MergeLabels(first map[string]string, second map[string]string) map[string]string {
+	// check if first is initialized
+	if first == nil {
+		first = make(map[string]string)
+	}
 	for k, v := range second {
 		first[k] = v
 	}
