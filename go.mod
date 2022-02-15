@@ -9,7 +9,7 @@ require (
 	github.com/coreos/prometheus-operator v0.41.1
 	github.com/crossplane/crossplane-runtime v0.9.0 // indirect
 	github.com/crossplane/oam-kubernetes-runtime v0.0.9
-	github.com/fsnotify/fsnotify v1.4.9
+	github.com/fsnotify/fsnotify v1.5.1
 	github.com/ghodss/yaml v1.0.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/google/go-containerregistry v0.4.0
@@ -28,7 +28,6 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/tidwall/gjson v1.14.0
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad // indirect
-	golang.org/x/sys v0.0.0-20210108172913-0df2131ae363 // indirect
 	golang.org/x/term v0.0.0-20201210144234-2321bbc49cbf // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200603094226-e3079894b1e8
 	istio.io/api v0.0.0-20200208020912-9564cdd03c96
