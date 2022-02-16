@@ -12,7 +12,6 @@ require (
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/google/go-containerregistry v0.8.0
 	github.com/google/gofuzz v1.2.0 // indirect
-	github.com/kubernetes-sigs/application v0.8.1 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/openshift/api v0.0.0-20200825174227-962ddb6aceab
 	github.com/openshift/client-go v0.0.0-20200729195840-c2b1adc6bed6
@@ -31,7 +30,7 @@ require (
 	k8s.io/klog v1.0.0
 	k8s.io/klog/v2 v2.4.0
 	k8s.io/kubectl v0.19.10 // indirect
-	sigs.k8s.io/application v0.8.1
+	sigs.k8s.io/application v0.8.3
 )
 
 replace (

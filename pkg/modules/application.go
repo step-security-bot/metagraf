@@ -20,7 +20,7 @@ import (
 	"github.com/laetho/metagraf/internal/pkg/params"
 	"github.com/laetho/metagraf/pkg/metagraf"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	kapp "sigs.k8s.io/application/pkg/apis/app/v1beta1"
+	kapp "sigs.k8s.io/application/api/v1beta1"
 )
 
 func GenApplication(mg *metagraf.MetaGraf) {
