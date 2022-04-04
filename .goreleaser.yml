@@ -44,7 +44,7 @@ archives:
   - format: tar.gz
     id: mg
     name_template: "mg-{{.Version}}-{{.Os}}-{{.Arch}}"
-    wrap_in_directory: true
+    wrap_in_directory: false
     format_overrides:
       - goos: windows
         format: zip
