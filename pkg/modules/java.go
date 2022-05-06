@@ -46,7 +46,10 @@ func GenEnvVar_JVM_SYS_PROP(mgp metagraf.MGProperties, name string) corev1.EnvVa
 		if Defaults {
 			props = append(props, "-D"+p.Key+"="+p.Default)
 		} else {
-			props = append(props, "-D"+p.Key+"="+p.Value)
+                        // Do not append property with empty string
+                        if p.Value != "" {
+			        props = append(props, "-D"+p.Key+"="+p.Value)
+                        }
 		}
 	}
 	return corev1.EnvVar{
