@@ -68,7 +68,7 @@ brews:
 - name: metagraf
   tap:
     owner: "{{ .Env.GITHUB_REPOSITORY_OWNER}}"
-    name: homebrew-metagraf
+    name: homebrew-tap
     token: "{{ .Env.HOMEBREW_TOKEN }}"
   install: |
     bin.install "mg"
