@@ -8,7 +8,13 @@ resources, supporting CI, CD and GitOps software delivery.
 The specification takes inspiration from the <a href="https://12factor.net">twelve-factor app</a> 
 methodology.  
 
+## Installation
 
+With Homebrew on macOS:
+```bash
+brew tap norsk-tipping/tap
+brew install metagraf
+```
 
 ## Status
 
