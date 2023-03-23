@@ -164,6 +164,7 @@ func GenDeployment(mg *metagraf.MetaGraf, namespace string) {
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      objname,
 			Labels:    l,
+			Annotations: mg.Metadata.Annotations,
 			Namespace: namespace,
 		},
 		Spec: appsv1.DeploymentSpec{
@@ -179,6 +180,7 @@ func GenDeployment(mg *metagraf.MetaGraf, namespace string) {
 					Name:      objname,
 					Labels:    l,
 					Namespace: namespace,
+					Annotations: mg.Metadata.Annotations,
 				},
 				Spec: corev1.PodSpec{
 					Containers: Containers,
