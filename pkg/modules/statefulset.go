@@ -171,6 +171,7 @@ func GenStatefulSet(mg *metagraf.MetaGraf, namespace string) {
 			Name:      objname,
 			Labels:    l,
 			Namespace: namespace,
+			Annotations: mg.Metadata.Annotations,
 		},
 		Spec: appsv1.StatefulSetSpec{
 			Replicas:             &params.Replicas,
@@ -185,6 +186,7 @@ func GenStatefulSet(mg *metagraf.MetaGraf, namespace string) {
 					Name:      objname,
 					Labels:    l,
 					Namespace: namespace,
+					Annotations: mg.Metadata.Annotations,
 				},
 				Spec: corev1.PodSpec{
 					Containers: Containers,
