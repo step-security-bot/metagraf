@@ -30,7 +30,7 @@ require (
 	k8s.io/client-go v12.0.0+incompatible
 	k8s.io/component-base v0.20.6 // indirect
 	k8s.io/klog v1.0.0
-	k8s.io/klog/v2 v2.4.0
+	k8s.io/klog/v2 v2.100.1
 	k8s.io/kubectl v0.19.10 // indirect
 	k8s.io/utils v0.0.0-20201110183641-67b214c5f920 // indirect
 	sigs.k8s.io/application v0.8.3
