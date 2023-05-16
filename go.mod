@@ -9,15 +9,17 @@ require (
 	github.com/crossplane/oam-kubernetes-runtime v0.3.3
 	github.com/fsnotify/fsnotify v1.5.4
 	github.com/ghodss/yaml v1.0.0
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/google/go-containerregistry v0.11.0
+	github.com/golang/glog v1.0.0
+	github.com/google/go-containerregistry v0.15.2
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
+	github.com/jonboulle/clockwork v0.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
+	github.com/onsi/gomega v1.16.0 // indirect
 	github.com/openshift/api v0.0.0-20200825174227-962ddb6aceab
 	github.com/openshift/client-go v0.0.0-20200729195840-c2b1adc6bed6
 	github.com/pkg/errors v0.9.1
-	github.com/spf13/cobra v1.5.0
+	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.12.0
 	github.com/stretchr/testify v1.8.2
